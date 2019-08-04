@@ -77,7 +77,8 @@ RUN apk update && \
 WORKDIR /opt/tinode
 
 # Get the desired Tinode build.
-ADD https://github.com/Cyanobacteria/chat/releases/download/v$VERSION/tinode-$TARGET_DB.linux-amd64.tar.gz .
+#ADD https://github.com/Cyanobacteria/chat/releases/download/v$VERSION/tinode-$TARGET_DB.linux-amd64.tar.gz .
+ADD https://github.com/Cyanobacteria/chat/raw/master/releases/$VERSION/tinode-$TARGET_DB.linux-amd64.tar.gz .
 
 # Unpack the Tinode archive.
 RUN tar -xzf tinode-$TARGET_DB.linux-amd64.tar.gz \
