@@ -40,7 +40,7 @@ do
     # Remove previous build
     rm -f $GOPATH/bin/keygen
     # Build
-    ~/go/bin/gox -osarch="${plat}/${arc}" -ldflags "-s -w" -output $GOPATH/bin/keygen ./keygen > /dev/null
+    ~/go/bin/gox -cgo=0 -osarch="${plat}/${arc}" -ldflags "-s -w" -output $GOPATH/bin/keygen ./keygen > /dev/null
 
     for dbtag in "${dbtags[@]}"
     do
@@ -50,10 +50,10 @@ do
       rm -f $GOPATH/bin/tinode
       rm -f $GOPATH/bin/init-db
       # Build tinode server and database initializer for RethinkDb and MySQL.
-      ~/go/bin/gox -osarch="${plat}/${arc}" \
+      ~/go/bin/gox -cgo=0 -osarch="${plat}/${arc}" \
         -ldflags "-s -w -X main.buildstamp=`git describe --tags`" \
         -tags ${dbtag} -output $GOPATH/bin/tinode ./server > /dev/null
-      ~/go/bin/gox -osarch="${plat}/${arc}" \
+      ~/go/bin/gox -cgo=0 -osarch="${plat}/${arc}" \
         -ldflags "-s -w" \
         -tags ${dbtag} -output $GOPATH/bin/init-db ./tinode-db > /dev/null
 
@@ -124,10 +124,10 @@ echo "Building the binary for the demo at api.tinode.co"
 rm -f $GOPATH/bin/tinode
 rm -f $GOPATH/bin/init-db
 
-~/go/bin/gox -osarch=linux/amd64 \
+~/go/bin/gox -cgo=0 -osarch=linux/amd64 \
   -ldflags "-X main.buildstamp=`git describe --tags`" \
   -tags rethinkdb -output $GOPATH/bin/tinode ./server > /dev/null
-~/go/bin/gox -osarch=linux/amd64 \
+~/go/bin/gox -cgo=0 -osarch=linux/amd64 \
   -tags rethinkdb -output $GOPATH/bin/init-db ./tinode-db > /dev/null
 
 
