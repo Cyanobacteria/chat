@@ -21,7 +21,8 @@ if [[ ${ver[2]} != *"-"* ]]; then
   FULLRELEASE=1
 fi
 
-dbtags=( mysql rethinkdb )
+#dbtags=( mysql rethinkdb )
+dbtags=( mysql )
 
 # Build an images for various DB backends
 for dbtag in "${dbtags[@]}"
@@ -43,5 +44,5 @@ if [ -n "$FULLRELEASE" ]; then
   rmitags="${rmitags} tinode/chatbot:latest tinode/chatbot:${ver[0]}.${ver[1]}"
   buildtags="${buildtags}  --tag tinode/chatbot:latest --tag tinode/chatbot:${ver[0]}.${ver[1]}"
 fi
-docker rmi ${rmitags}
-docker build --build-arg VERSION=$tag ${buildtags} docker/chatbot
+#docker rmi ${rmitags}
+#docker build --build-arg VERSION=$tag ${buildtags} docker/chatbot

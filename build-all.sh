@@ -4,11 +4,13 @@
 # I use this to compile the Linux version of the server on my Mac.
 
 # Supported OSs: darwin windows linux
-goplat=( darwin windows linux )
+#goplat=( darwin windows linux )
+goplat=(linux )
 # Supported CPU architectures: amd64
 goarc=( amd64 )
 # Supported database tags
-dbtags=( mysql rethinkdb )
+#dbtags=( mysql rethinkdb )
+dbtags=( mysql )
 
 for line in $@; do
   eval "$line"
@@ -131,6 +133,8 @@ rm -f $GOPATH/bin/init-db
   -tags rethinkdb -output $GOPATH/bin/init-db ./tinode-db > /dev/null
 
 
+<<'COMMENT'
+
 # Build chatbot release
 echo "Building python code..."
 
@@ -157,6 +161,8 @@ mkdir -p ./releases/tmp
 
 cp ${GOSRC}/chat/tn-cli/tn-cli.py ./releases/tmp
 
+COMMENT
+
 tar -C ${GOSRC}/chat/releases/tmp -zcf ./releases/${version}/tn-cli.tar.gz .
 pushd ./releases/tmp > /dev/null
 zip -q -r ../${version}/tn-cli.zip ./*
@@ -164,5 +170,9 @@ popd > /dev/null
 
 # Clean up temporary files
 rm -fR ./releases/tmp
+rm -fR ./docker/tinode/releases
+mkdir ./docker/tinode/releases
+
+cp -Rf ./releases/* ./docker/tinode/releases/
 
 popd > /dev/null

@@ -72,13 +72,14 @@ ENV FCM_INCLUDE_ANDROID_NOTIFICATION=true
 # Install root certificates, they are needed for email validator to work
 # with the TLS SMTP servers like Gmail. Also add bash and grep.
 RUN apk update && \
-	apk add --no-cache ca-certificates bash grep
+	apk add --no-cache ca-certificates bash grep libc6-compat
 
 WORKDIR /opt/tinode
 
 # Get the desired Tinode build.
 #ADD https://github.com/Cyanobacteria/chat/releases/download/v$VERSION/tinode-$TARGET_DB.linux-amd64.tar.gz .
-ADD https://github.com/Cyanobacteria/chat/raw/master/releases/$VERSION/tinode-$TARGET_DB.linux-amd64.tar.gz .
+#ADD https://github.com/Cyanobacteria/chat/raw/master/releases/$VERSION/tinode-$TARGET_DB.linux-amd64.tar.gz .
+ADD ./releases/$VERSION/tinode-$TARGET_DB.linux-amd64.tar.gz .
 
 # Unpack the Tinode archive.
 RUN tar -xzf tinode-$TARGET_DB.linux-amd64.tar.gz \
